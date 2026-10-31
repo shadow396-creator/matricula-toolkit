@@ -1,0 +1,62 @@
+[project]
+name = "matricula-toolkit"
+version = "1.0.0"
+description = "CLI, desktop workbench, and MCP server for downloading Matricula church book scans, with extensible machine-readable provider configuration for external genealogical archives"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "Matricula Toolkit" }]
+keywords = ["matricula", "church-books", "genealogy", "mcp", "cli"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "Intended Audience :: End Users/Desktop",
+    "Topic :: Internet :: WWW/HTTP",
+]
+dependencies = [
+    "Pillow>=10.0.0",
+    "playwright>=1.50.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/shadow396-creator/matricula-toolkit"
+Repository = "https://github.com/shadow396-creator/matricula-toolkit"
+
+[project.optional-dependencies]
+desktop = [
+    "PySide6>=6.7.0",
+]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.24.0",
+    "responses>=0.26.0",
+    "mypy>=1.10.0",
+    "ruff>=0.8.0",
+    "cryptography>=42.0.0",
+]
+mcp = [
+    "mcp>=1.0.0",
+]
+
+[project.scripts]
+matricula-download = "matricula_toolkit.cli:main"
+matricula-desktop = "matricula_toolkit.desktop:main"
+matricula-mcp = "matricula_toolkit.mcp_server:main"
+matricula-install = "matricula_toolkit.installer_cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/matricula_toolkit"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-v --tb=short"
